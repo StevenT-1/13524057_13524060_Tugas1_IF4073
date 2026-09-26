@@ -1,17 +1,13 @@
-function myHist(imgpath)
-    img = imread(imgpath);
-    for c = 1:3
-        color_ch = img(:,:,1);
-        hist_data = createArray(256);
-        [h, w] = size(color_ch);
-        
+function hist_data = myHist(img)
+    [h, w, num_channels] = size(img);
+    hist_data = zeros(256, 3);
+    for c = 1:num_channels
         for i = 1:h 
             for j = 1:w 
-                val = color_ch(i, j, :);
-                hist_data(val + 1) = hist_data(val + 1) + 1;
+                val = img(i, j, c);
+                hist_data(val + 1, c) = hist_data(val + 1, c) + 1;
             end
         end
-        bar(hist_data, 50, 'white');
     end
 end
 
