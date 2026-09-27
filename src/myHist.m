@@ -1,6 +1,6 @@
 function hist_data = myHist(img)
     [h, w, num_channels] = size(img);
-    hist_data = zeros(256, 3);
+    hist_data = zeros(256, num_channels);
     for c = 1:num_channels
         for i = 1:h 
             for j = 1:w 
