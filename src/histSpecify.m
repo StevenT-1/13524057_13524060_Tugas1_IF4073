@@ -3,13 +3,14 @@ function new_img = histSpecify(img, spec_img)
     uniform_img = histEqualize(img);
     [h, w, num_channels] = size(img);
     L = size(hist_spec, 1);
-    num_pixels = h*w;
+    [spec_h, spec_w, ~] = size(spec_img)
+    num_pixels_spec = spec_h*spec_w;
     new_hist_map = zeros(L, num_channels);
     for c = 1:num_channels
         acc = 0;
         for i = 1:L
             acc = acc + hist_spec(i, c);
-            acc_val = double(acc)/num_pixels;
+            acc_val = double(acc)/num_pixels_spec;
             new_hist_map(i, c) = uint8(floor(acc_val*(L - 1)));
         end
     end

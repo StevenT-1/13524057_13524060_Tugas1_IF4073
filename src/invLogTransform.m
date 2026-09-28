@@ -9,4 +9,5 @@ function out = invLogTransform(img, c)
             end 
         end
     end
+    out = im2uint8(out);
 end

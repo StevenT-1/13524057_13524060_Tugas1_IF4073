@@ -2,7 +2,8 @@ function out = gammaCorrection(img, c, gamma)
     arguments
         img
         c {mustBePositive}
-        y {mustBePositive}
+        gamma {mustBePositive}
     end
-    out = c * img.^(1/gamma);
+    a = im2double(img);
+    out = c * a.^(1/gamma);
 end

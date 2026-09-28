@@ -4,14 +4,14 @@ function out = avgFiltering(img, sz)
         sz {mustBePositive, mustBeInteger}
     end
 
-    [row, col, ~] = size(img);
-    out = zeros(row, col, 3);
+    [row, col, num_ch] = size(img);
+    out = zeros(row, col, num_ch);
     img = double(img);
 
     radius = (sz-1)/2;
     for i=1 : row
         for j=1 : col
-            for k=1 : 3
+            for k=1 : num_ch
             pixels_sum = 0;
             for m=i-radius : i+radius
                 for n=j-radius : j+radius

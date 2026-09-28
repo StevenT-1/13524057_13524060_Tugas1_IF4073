@@ -9,30 +9,23 @@ function out = medianFiltering(img, n)
         return;
     end
 
-    [row, col, ~] = size(img);
-    out = zeros(row, col, 3, like=img);
+    [row, col, num_ch] = size(img);
+    out = zeros(row, col, num_ch, like=img);
 
     r = (n-1)/2;
-    padded_red = mirrorPad(img(:, :, 1), r);
-    padded_green = mirrorPad(img(:, :, 2), r);
-    padded_blue = mirrorPad(img(:, :, 3), r);
-
-    [new_row, new_col] = size(padded_red);
-
-    for i=1+r : new_row-r
-        for j=1+r : new_col-r
-            window_red = padded_red(i-r:i+r, j-r:j+r);
-            window_green = padded_green(i-r:i+r, j-r:j+r);
-            window_blue = padded_blue(i-r:i+r, j-r:j+r);
-
-            new_pixel_red = median(window_red, "all");
-            new_pixel_green = median(window_green, "all");
-            new_pixel_blue = median(window_blue, "all");
-
-            out(i-r, j-r, :) = [new_pixel_red, new_pixel_green, new_pixel_blue];
+    for c=1 : num_ch 
+        padded = mirrorPad(img(:, :, c), r);
+    
+        [new_row, new_col] = size(padded);
+    
+        for i=1+r : new_row-r
+            for j=1+r : new_col-r
+                window = padded(i-r:i+r, j-r:j+r);    
+                new_pixel = median(window, "all");
+                out(i-r, j-r, c) = new_pixel;
+            end
         end
     end
-
 end
 
 function padded_matrix = mirrorPad(matrix, n)

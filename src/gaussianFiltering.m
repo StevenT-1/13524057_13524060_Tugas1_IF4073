@@ -4,7 +4,7 @@ function out = gaussianFiltering(img, sigma)
         sigma {mustBePositive}
     end
 
-    [row, col, ~] = size(img);
+    [row, col, num_ch] = size(img);
     out = zeros(size(img));
     img = double(img);
 
@@ -28,7 +28,7 @@ function out = gaussianFiltering(img, sigma)
     radius = center-1;
     for i=1 : row
         for j=1 : col
-            for k=1 : 3
+            for k=1 : num_ch
                 pixels_sum = 0;
                 for m=i-radius : i+radius
                     for n=j-radius : j+radius

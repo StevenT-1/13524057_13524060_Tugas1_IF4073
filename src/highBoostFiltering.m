@@ -6,7 +6,7 @@ function out = highBoostFiltering(img, sigma, a)
     end
 
     lowpass = gaussianFiltering(img, sigma);
-    img = double(img);
+    original = im2double(img);
     lowpass = double(lowpass);
 
     mask = original - lowpass;
