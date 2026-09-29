@@ -4,9 +4,13 @@ function out = avgFiltering(img, n)
         n {mustBePositive, mustBeInteger}
     end
 
-    [row, col, num_ch] = size(img);
-    out = zeros(row, col, num_ch);
-    img = double(img);
+    if mod(n, 2) == 0
+        error("Kernel size must be odd.");
+    end
+
+    [~, ~, num_ch] = size(img);
+    out = zeros(size(img));
+    img = im2double(img);
 
     r = (n-1)/2;
     for c=1 : num_ch 
@@ -22,6 +26,8 @@ function out = avgFiltering(img, n)
             end
         end
     end               
-             
-    out = uint8(out);
+
+    out = clip(out, 0, 1);   
+    out = im2uint8(out);
 end
+

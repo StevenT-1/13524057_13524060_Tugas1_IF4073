@@ -20,7 +20,7 @@ function padded_matrix = replicatePad(M, n)
             if (y > col)
                 y = col;
             end
-            padded_matrix(i, j) = matrix(x, y);
+            padded_matrix(i, j) = M(x, y);
         end
     end
 
