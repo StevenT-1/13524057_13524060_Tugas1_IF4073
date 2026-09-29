@@ -7,6 +7,10 @@ function out = convolution(M, kernel)
     pad = mirrorPad(M, r);
 
     kernel_sum = double(sum(kernel, "all"));
+    if (kernel_sum == 0)
+        kernel_sum = 1;
+    end
+    
     for i=1 : row
         for j=1 : col
             pixels_sum = 0.0;
@@ -14,7 +18,7 @@ function out = convolution(M, kernel)
             k_j = 1;
             for m=i : i+2r
                 for n=j : j+2r
-                    pixels_sum = pixel_sum + kernel(k_i, k_j) * M(i, j);
+                    pixels_sum = pixel_sum + kernel(k_i, k_j) * pad(m, n);
                     k_j = k_j + 1;
                 end
                 k_i = k_i + 1;

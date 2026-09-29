@@ -6,4 +6,5 @@ function out = gammaCorrection(img, c, gamma)
     end
     a = im2double(img);
     out = c * a.^(1/gamma);
+    out = uint8(out);
 end
