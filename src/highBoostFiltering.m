@@ -1,16 +1,10 @@
-function out = highBoostFiltering(img, sigma, a)
-    arguments
-        img
-        sigma
-        a=2
-    end
+function out = highBoostFiltering(img, lowpass, a)
 
-    lowpass = gaussianFiltering(img, sigma);
-    original = double(img);
+    original = im2double(img);
     lowpass = double(lowpass);
 
     mask = original - lowpass;
-    out = (a - 1)*original + mask;
+    out = (a - 1) * original - mask;
 
     out = uint8(clip(out, 0, 255));
 end
