@@ -1,6 +1,6 @@
 function out = invLogTransform(img, c)
     img = im2double(img);
-    out = zeros(size(img));
+    out = zeros(size(img), "like", img);
     [row, col, ch] = size(img);
     for i=1 : row
         for j=1 : col

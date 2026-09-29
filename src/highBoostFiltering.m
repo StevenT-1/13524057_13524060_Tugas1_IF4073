@@ -1,10 +1,10 @@
-function out = highBoostFiltering(img, lowpass, a)
+function out = highBoostFiltering(img, highpass, a)
 
     original = im2double(img);
-    lowpass = double(lowpass);
+    highpass = im2double(highpass);
 
-    mask = original - lowpass;
-    out = (a - 1) * original - mask;
+    out = (a - 1) * original - highpass;
 
-    out = uint8(clip(out, 0, 255));
+    out = clip(out, 0, 1);
+    out = im2uint8(out);
 end

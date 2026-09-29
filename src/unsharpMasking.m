@@ -1,17 +1,14 @@
-function out = unsharpMasking(img, n)
+function out = unsharpMasking(img, highpass)
     arguments
         img
         n {mustBePositive, mustBeInteger}
     end
 
-    lowpass = avgFiltering(img, n);
-
-    img = double(img);
-    lowpass = double(lowpass);
-    highpass = img - lowpass;
+    img = im2double(img);
+    highpass = im2double(highpass);
     out = img + highpass;
 
-    out = clip(out, 0, 255);
-    out = uint8(out);
+    out = clip(out, 0, 1);
+    out = im2uint8(out);
 
 end
