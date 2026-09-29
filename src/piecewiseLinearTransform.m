@@ -9,7 +9,7 @@ function out = piecewiseLinearTransform(img, ya, yb)
 
 end
 
-function outChannel = stretchChannel(img_ch, ya, yb)
+function outChannel = stretchChannel(img_ch, a, b, ya, yb)
     [row, col] = size(img_ch);
     outChannel = zeros(size(img_ch));
 
@@ -23,15 +23,19 @@ function outChannel = stretchChannel(img_ch, ya, yb)
         end
     end
 
-    alpha = double(ya)/double(ch_min + 1);
+    if (a ~= 0)
+        alpha = double(ya)/double(a);
+    end
     beta = double(yb-ya)/double(ch_max-ch_min);
-    gamma = double(255-yb)/double(255-ch_max + 1);
+    if (b ~= 255)
+        gamma = double(255-yb)/double(255-b);
+    end
     disp(beta);
     for i=1 : row
         for j=1 : col
-            if (img_ch(i, j) < ch_min)
+            if (img_ch(i, j) < a)
                 outChannel(i, j) = uint8(alpha * img_ch(i, j));
-            elseif(img_ch(i, j) < ch_max)
+            elseif(img_ch(i, j) < b)
                 outChannel(i, j) = uint8(beta * (img_ch(i, j) - ch_min) + ya);
             else
                 outChannel(i, j) = uint8(gamma * (img_ch(i, j) - ch_max) + yb);

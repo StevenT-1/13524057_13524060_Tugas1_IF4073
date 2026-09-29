@@ -1,13 +1,14 @@
-function out = avgFiltering(img, sz)
+function out = avgFiltering(img, n)
     arguments
         img
-        sz {mustBePositive, mustBeInteger}
+        n {mustBePositive, mustBeInteger}
     end
 
     [row, col, num_ch] = size(img);
     out = zeros(row, col, num_ch);
     img = double(img);
 
+    r = (n-1)/2;
     for c=1 : num_ch 
         padded = replicatePad(img(:, :, c), r);
     
@@ -16,7 +17,7 @@ function out = avgFiltering(img, sz)
         for i=1+r : new_row-r
             for j=1+r : new_col-r
                 window = padded(i-r:i+r, j-r:j+r);    
-                new_pixel = sum(window, "all")/sz^2;
+                new_pixel = sum(window, "all")/n^2;
                 out(i-r, j-r, c) = new_pixel;
             end
         end
