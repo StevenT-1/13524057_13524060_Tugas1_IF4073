@@ -26,29 +26,11 @@ function out = gaussianFiltering(img, sigma)
     gaussian_kernel = gaussian_kernel/kernel_sum;
     
     radius = center-1;
-    for i=1 : row
-        for j=1 : col
-            for k=1 : num_ch
-                pixels_sum = 0;
-                for m=i-radius : i+radius
-                    for n=j-radius : j+radius
-                        x = m;
-                        y = n;
-                        if (m < 1)
-                            x = 1 + (1-m);
-                        end
-                        if (n < 1)
-                            y = 1 + (1-n);
-                        end
-                        if (m > row)
-                            x = row + (row - m);
-                        end
-                        if (n > col)
-                            y = col + (col - n);
-                        end
-                        pixels_sum = pixels_sum + img(x, y, k) * gaussian_kernel(m-i+radius+1, n-j+radius+1);
-                    end
-                end
+    for k=1 : ch
+        padded = mirrorPad(img(i, j, :), r);
+        for i=1 : row
+            for j=1 : col
+                pixels_sum = dot(padded(i:i+2*r, j:j+2*r), gaussian_kernel);
                 out(i, j, k) = pixels_sum;
             end
         end
