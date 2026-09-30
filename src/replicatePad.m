@@ -1,5 +1,5 @@
 function padded_matrix = replicatePad(M, n)
-    [row, col] = size(matrix);
+    [row, col] = size(M);
     new_row = row + 2*n;
     new_col = col + 2*n;
     padded_matrix = zeros(new_row, new_col);
