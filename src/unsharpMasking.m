@@ -1,7 +1,7 @@
 function out = unsharpMasking(img, highpass)
     arguments
         img
-        n {mustBePositive, mustBeInteger}
+        highpass
     end
 
     img = im2double(img);
