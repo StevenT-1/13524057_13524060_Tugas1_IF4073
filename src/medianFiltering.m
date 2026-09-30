@@ -9,6 +9,11 @@ function out = medianFiltering(img, n)
         return;
     end
 
+    if mod(n, 2) == 0
+        error("Kernel size must be odd.");
+    end
+
+
     [row, col, num_ch] = size(img);
     out = zeros(row, col, num_ch, like=img);
 

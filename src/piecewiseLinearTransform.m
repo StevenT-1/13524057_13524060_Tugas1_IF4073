@@ -13,6 +13,8 @@ function outChannel = stretchChannel(img_ch, a, b, ya, yb)
     [row, col] = size(img_ch);
     outChannel = zeros(size(img_ch));
 
+    alpha = 0;
+    gamma = 0;
     if (a ~= 0)
         alpha = double(ya)/double(a);
     end
@@ -20,7 +22,7 @@ function outChannel = stretchChannel(img_ch, a, b, ya, yb)
     if (b ~= 255)
         gamma = double(255-yb)/double(255-b);
     end
-    disp(beta);
+
     for i=1 : row
         for j=1 : col
             if (img_ch(i, j) < a)
