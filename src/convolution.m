@@ -30,5 +30,5 @@ function out = convolution(M, kernel)
         end
     end
 
-    out = uint8(out);
+    out = uint8(out);  
 end
